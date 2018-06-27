@@ -68,8 +68,9 @@ module.exports = {
         modules: [ JS_SRC, './node_modules' ],
         alias: {
             'flowtype/trezor': `${ SRC }/flowtype/empty.js`,
-            'flowtype/tests/get-address': `${ SRC }/flowtype/tests/get-address.js`,
-            'flowtype/tests/sign-message': `${ SRC }/flowtype/tests/sign-message.js`,
+            /* 'flowtype/tests': `${ SRC }/flowtype/tests`, */
+            /* 'flowtype/tests/sign-message': `${ SRC }/flowtype/tests/sign-message.js`,
+            'flowtype/tests/ethereum-sign-tx': `${ SRC }/flowtype/tests/ethereum-sign-tx.js`, */
         }
     },
 
