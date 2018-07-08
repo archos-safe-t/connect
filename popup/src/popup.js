@@ -1355,16 +1355,18 @@ function initDevice({emptyPassphrase} = {}) {
 function initTransport() {
     let timestamp = new Date().getTime();
     let configUrl = CONFIG_URL + '?' + timestamp;
+    let newestBridgeUrl = BRIDGE_NEWEST_VERSION_URL + '?' + timestamp;
+
     let transport = new SafeTLink.BridgeV2(
         BRIDGE_LOCAL_URL,
-        BRIDGE_NEWEST_VERSION_URL
+        newestBridgeUrl
     )
 
     let result = new Promise((resolve, reject) => {
         let list = new trezor.DeviceList({
             debug: TRANSPORT_DEBUG,
             debugInfo: TRANSPORT_DEBUG,
-            bridgeVersionUrl: BRIDGE_NEWEST_VERSION_URL,
+            bridgeVersionUrl: newestBridgeUrl,
             configUrl: configUrl,
             transport: transport
         });
