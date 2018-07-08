@@ -129,7 +129,7 @@ input[type="password"] {
 .alert.fadeout {
     /* opacity: 0; */
     visibility: hidden;
-    display: none;
+    display: none; /* AV: Add "display: none" to avoid remaining animations visible after visibility set to hidden */
     /* transition: visibility 0s 0.3s, opacity 0.3s cubic-bezier(0.755, 0.05, 0.855, 0.06); */
 }
 
