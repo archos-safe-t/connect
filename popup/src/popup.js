@@ -33,11 +33,10 @@ const SCRIPT_TYPES = {
     [NETWORK.pubKeyHash]: 'PAYTOADDRESS',
     [NETWORK.scriptHash]: 'PAYTOSCRIPTHASH'
 };
-const CONFIG_URL = './config_signed.bin';
-
-const BRIDGE_NEWEST_VERSION_URL = "./bridge_version.html";
+const CONFIG_URL = 'https://storage.googleapis.com/safe-t-software/safe-t-mini/config_signed.bin';
+const BRIDGE_NEWEST_VERSION_URL = 'https://storage.googleapis.com/safe-t-software/bridge/latest_version.txt';
 const TRANSPORT_DEBUG = true;
-const BRIDGE_LOCAL_URL = "http://127.0.0.1:21326"; // Port++ compared to trezor bridge to avoid conflict when both are running
+const BRIDGE_LOCAL_URL = 'http://127.0.0.1:21326'; // Port++ compared to trezor bridge to avoid conflict when both are running
 
 var CHUNK_SIZE = 20;
 var GAP_LENGTH = 20;

@@ -28,8 +28,6 @@ dist-stable-v%:
 	mkdir dist/$*/popup/js
 	mkdir dist/$*/popup/css
 	mkdir dist/$*/popup/img
-	cp popup/config_signed.bin dist/$*/popup
-	cp popup/bridge_version.html dist/$*/popup
 	cp popup/coins.json dist/$*/popup
 	cp popup/popup.html dist/$*/popup
 	cp login_buttons.css dist/$*
