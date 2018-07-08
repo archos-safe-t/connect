@@ -37,6 +37,7 @@ dist-stable-v%:
 	cp -r popup/js dist/$*/popup/
 	cp -r popup/css dist/$*/popup/
 	cp -r popup/img dist/$*/popup/
+	cp -r landing/index.html landing/*.png dist/
 	
 
 sync-stable-v%:
