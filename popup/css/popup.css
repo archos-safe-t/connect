@@ -129,16 +129,12 @@ input[type="password"] {
 .alert.fadeout {
     /* opacity: 0; */
     visibility: hidden;
+    display: none;
     /* transition: visibility 0s 0.3s, opacity 0.3s cubic-bezier(0.755, 0.05, 0.855, 0.06); */
 }
 
 .alert_icon {
-    width: 90px;
-    height: 90px;
-    padding: 1px;               /* whitespace between border and image */
-    vertical-align: middle;     /* center-to-center with heading */
-    border: 1px solid #333333;	/* same as text color */
-    border-radius: 50%;         /* make icon round */
+    display: inline-block;
 }
 
 .alert_heading {
@@ -148,10 +144,10 @@ input[type="password"] {
 }
 
 .alert_icon + .alert_heading {
-    display: inline-block;      /* inline with icon */
+    display: inline-block;
     max-width: 250px;
-    margin-left: 20px;          /* set off from icon */
-    vertical-align: middle;     /* center-to-center with icon */
+    margin-top: 20px;
+    vertical-align: top;
     text-align: left;
 }
 
@@ -161,6 +157,51 @@ input[type="password"] {
 
 .alert_heading strong {
     font-weight: 400;
+}
+
+.connect-animation {
+	text-align: center;
+	min-width: 200px;
+}
+.connect-device {
+	position: relative;
+	z-index: 10;
+}
+.connect-usb-plug {
+	position: relative;
+	z-index: 9;
+	transform: translate(0px,-100px);
+	-webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -o-transition: 1s ease-in-out;
+	transition: 1s ease-in-out;
+	animation: plug 3s ease-in-out infinite;
+}
+@keyframes plug {
+	0% {
+		transform: translate(0px, 0px);
+		opacity: 0;
+	}
+	5% {
+		transform: translate(0px, 0px);
+		opacity: 1;
+	}
+	60% {
+		transform: translate(0px, -24px);
+		opacity: 1;
+	}
+	75% {
+		transform: translate(0px, -24px);
+		opacity: 1;
+	}
+	90% {
+		transform: translate(0px, -24px);
+		opacity: 0;
+	}
+	100% {
+		transform: translate(0px, 0px);
+		opacity: 0;
+	}
 }
 
 #alert_connect {
