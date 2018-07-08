@@ -7,7 +7,7 @@ SOCKET_WORKER_TARGET=js/socket-worker-dist.js
 DISCOVERY_WORKER_TARGET=js/discovery-worker-dist.js
 TREZOR_CRYPTO=trezor-crypto/emscripten/trezor-crypto.js
 TREZOR_CRYPTO_TARGET=js/trezor-crypto-dist.js
-COINS_JSON=trezor-common/coins.json
+COINS_JSON=safe-t-common/coins.json
 COINS_JSON_TARGET=coins.json
 
 

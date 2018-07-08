@@ -253,7 +253,7 @@ this.SafeTConnect = (function () {
          * @param {function(SignTxResult)} callback
          * @param {?(string|array<number>)} requiredFirmware
          *
-         * @see https://github.com/trezor/trezor-common/blob/master/protob/types.proto
+         * @see https://github.com/archos-safe-t/safe-t-common/blob/master/protob/types.proto
          */
         this.signTx = function (inputs, outputs, callback, requiredFirmware, coin) {
             manager.sendWithChannel(_fwStrFix({
@@ -341,7 +341,7 @@ this.SafeTConnect = (function () {
          * @param {string|function(RequestLoginResult)} callback
          * @param {?(string|array<number>)} requiredFirmware
          *
-         * @see https://github.com/trezor/trezor-common/blob/master/protob/messages.proto
+         * @see https://github.com/archos-safe-t/safe-t-common/blob/master/protob/messages.proto
          */
         this.requestLogin = function (
             hosticon,

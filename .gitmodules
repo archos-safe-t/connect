@@ -2,6 +2,6 @@
 	path = popup/trezor-crypto
 	url = https://github.com/trezor/trezor-crypto.git
 	branch = master
-[submodule "popup/trezor-common"]
-	path = popup/trezor-common
-	url = https://github.com/trezor/trezor-common.git
+[submodule "popup/safe-t-common"]
+	path = popup/safe-t-common
+	url = https://github.com/archos-safe-t/safe-t-common.git
