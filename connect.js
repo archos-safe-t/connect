@@ -7,7 +7,7 @@ var SAFE_T_CONNECT_VERSION = 4;
 
 
 // LOCAL TEST
-window.SAFE_T_POPUP_ORIGIN = 'http://localhost:8000'
+//window.SAFE_T_POPUP_ORIGIN = 'http://localhost:8000'
 
 if (!Array.isArray) {
     Array.isArray = function(arg) {
