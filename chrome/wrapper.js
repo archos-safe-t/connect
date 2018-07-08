@@ -1,6 +1,6 @@
 var chrome = window.chrome;
 
-var port = chrome.runtime.connect({name: 'trezor-connect'});
+var port = chrome.runtime.connect({name: 'safe-t-connect'});
 
 var view = document.getElementById('view');
 

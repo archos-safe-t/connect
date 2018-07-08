@@ -14,6 +14,7 @@ COINS_JSON_TARGET=coins.json
 .PHONY: build clean node_modules submodules
 
 build: ${ENTRY} ${SOCKET_WORKER} ${DISCOVERY_WORKER} node_modules submodules
+	mkdir js
 	${BIN}/browserify ${ENTRY} \
 		-g [ uglifyify ] \
 		-d \
@@ -30,14 +31,14 @@ build: ${ENTRY} ${SOCKET_WORKER} ${DISCOVERY_WORKER} node_modules submodules
 	cp ${COINS_JSON} ${COINS_JSON_TARGET}
 
 build-fast: 
+	mkdir js
 	${BIN}/browserify ${ENTRY} \
 		-g [ uglifyify ] \
 		-d \
 	| ${BIN}/exorcist ${TARGET}.map > ${TARGET}
 
 clean:
-	rm -f ${TARGET} ${TARGET}.map
-	rm -f ${TARGET_WORKER} ${TARGET_WORKER}.map
+	rm -rf js
 
 node_modules:
 	yarn

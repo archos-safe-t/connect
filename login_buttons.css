@@ -1,9 +1,9 @@
-#trezorconnect-wrapper {
+#safe-t-connect-wrapper {
     display: inline-block;
     font-family: Helvetica, Arial, sans-serif;
 }
 
-#trezorconnect-button {
+#safe-t-connect-button {
     font-size: 14px; 
     display: block; 
     padding: 6px 12px; 
@@ -23,15 +23,15 @@
     position:relative; 
     padding-left:44px; 
     color:#fff; 
-    background-color:#59983b; 
-    border-color:rgba(0,0,0,0.2);
+    background-color:#293b8e;
+    border-color:rgba(0,0,0,1);
 } 
 
-#trezorconnect-button:hover{
-    background-color:#43732d
+#safe-t-connect-button:hover{
+    background-color:#3851c2
 } 
 
-#trezorconnect-icon{
+#safe-t-connect-icon{
     position:absolute;
     left:0;
     top:0;
@@ -40,12 +40,12 @@
     line-height:34px;
     font-size:1.6em;
     text-align:center;
-    border-right:1px solid rgba(0,0,0,0.2);
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABWklEQVRYw+2WPUsDQRCGZ0w0RRQUCwUllT9AFAQra/+BjYiQRgRBBFv/goWFlVjaBm1SCVpZiIKgha1iI4iFXxDz2MzBEe6SveOWIOwLx3I7X+/NzuyNSEBADgDrQAN4Al6AU2ADKPkOPAk0ScclUPNJIB78ETgEDoD72P6Vl0xY2iMcA5WYrGxEImz7INCIfXklQV4CbkznwtXvQAYO87Y2VfWnU6iqvyJyZq+zrseQhcCUrc9ddCLZiD2FEuhbzy92FJgrjoClXv7VgcCriIzn5P+hqsPdFMoOTgZT9r9E5NOOsSoiQzn998zAeyylC0AV0JQ2HAOWgVuz+S6SwEoGmxNXAn3vgkAgEPgXV3HUhg/ALjDdRXcO2AfefNwDEdrAOVAHRm1M2wHuEv4HhRBYtVGslRQgZb9lNmtFD6RbNvMloW1D6SYw4bsuZoA9q4trq42aBATkwB8MsRcDkn7CNQAAAABJRU5ErkJggg==') no-repeat;
+    border-right:1px solid rgba(0,0,0,1);
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpkOWFmYzA3MC05NmQxLTRhNzctOTY1MS1kZDI2NTVlN2M1YzkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QTk1MjgwRjE1NzhDMTFFOEJBMjc5REIyRDUwMDNDMEMiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QTk1MjgwRjA1NzhDMTFFOEJBMjc5REIyRDUwMDNDMEMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpkYWFlNzJiNC03NGNlLTQ3OWQtYWYyYy1hZDEyYmFhOWQ4ZjYiIHN0UmVmOmRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDpkM2YyOTRhOC1kZTZhLTY1NGQtODcxOC1lMzIwMTEyNWJiZGYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4W2CVaAAAB1ElEQVR42uyXzysEYRjHdxDtQXIg7bZhSxaRSM5yclHKwb+wTg7KwdHFRUk5uTi4cBB7c5ByRBSREnLwc3FYrV8b4zN6DtO2887Ma8qBpz7NbM8zz/Od932fed81TNMM/aYVhX7Z/gWUqJyGYXxfWSfWTRw6hFZohhoIwyvcwjHswy7swQk5PiVH4SKWwwnx98GjqWcZGFLV8TIFSahU+C/gxcFXDsPK7B5G4EbxhiMSE4O0Q8wTFDnWUAmAiMsQl9peZF4Rl9CdghYXf8K2SBOKuE7dNnQTMCXXQehWxDXpCmhw8VfJNeplpHQELMJVAN+bOl0B49AP05Ar4I8z/9bw97jkiWq1ITwLY9AEM9JWfu1Dtw3tdm31PdRDEjYlsRdLO9UwXM4DhZzvsApLsA1t0AXtEIMIlElsBk5hEtYK7jcaAvL9h7ADR3AGl3AHWXiTuJz89i3A2uGqA+iCe1vL+uqC84C2/axuG6YCErCs24bFkDJ/ZhtQptWGItB6eEWz+DpUqF7UVYA8bI3ErM/iC3nbtb4AW5JRjx+fCdmiQ4EKkES98KA4Aw74WWu+BUiyWtjKK34AjX4Xu5YASVgKUzIlcxDWOXsa//8N/7yALwEGAORurX7gmziLAAAAAElFTkSuQmCC') no-repeat;
     background-position:center center;
 } 
 
-#trezorconnect-info {
+#safe-t-connect-info {
     display: block;
     font-size: 9px;
     text-align: right; 
@@ -53,13 +53,13 @@
     margin-right:5px;
 }
 
-#trezorconnect-infolink {
+#safe-t-connect-infolink {
     text-decoration: none; 
-    color: #59983b;
+    color: #293b8e;
 }
 
-#trezorconnect-infolink:hover {
-    color:#43732d;
+#safe-t-connect-infolink:hover {
+    color:#3851c2;
 }
 
 

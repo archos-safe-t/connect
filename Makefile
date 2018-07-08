@@ -29,6 +29,7 @@ dist-stable-v%:
 	mkdir dist/$*/popup/css
 	mkdir dist/$*/popup/img
 	cp popup/config_signed.bin dist/$*/popup
+	cp popup/bridge_version.html dist/$*/popup
 	cp popup/coins.json dist/$*/popup
 	cp popup/popup.html dist/$*/popup
 	cp login_buttons.css dist/$*
@@ -48,3 +49,7 @@ sync-rolling-%:
 	# Before first use: Install awscli (pip install awscli)
 	#   Configure access credentials (aws configure), region is "eu-central-1"
 	aws s3 sync --delete --cache-control 'public, max-age=3600' dist/$* s3://connect.trezor.io/$*/
+
+test:
+	cd dist ; python3 -m http.server 8000
+	echo "Safe-T Connect test now running at http://locahost:8000"

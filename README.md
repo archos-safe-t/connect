@@ -1,28 +1,19 @@
-# TREZOR Connect API
+# Safe-T Connect API
 
-[![Build Status](https://travis-ci.org/trezor/connect.svg?branch=master)](https://travis-ci.org/trezor/connect) [![gitter](https://badges.gitter.im/trezor/community.svg)](https://gitter.im/trezor/community)
-
-TREZOR Connect is a platform for easy integration of TREZOR into 3rd party
+Safe-T Connect is a platform for easy integration of Safe-T mini into 3rd party
 services. It provides websites with functionality to authenticate users, access
 public keys and sign transactions. User interface is presented in a secure popup
-window:
+window.
+User needs to confirm actions on his Safe-T mini
 
-![login dialog](docs/login_dialog.png)
-
-User needs to confirm actions on his TREZOR:
-
-![login dialog](docs/confirm.png)
-
-More general (and slightly obsolete) info can be found [here](https://doc.satoshilabs.com/trezor-tech/api-connect.html).
-
-Examples of usage can be found on https://connect.trezor.io/4/examples/
+This library is a mofified version of [connect](https://github.com/trezor/connect), aiming at the support of Archos Safe-T mini.
 
 ## Usage
 
 First, you need to include the library in your page:
 
 ```html
-<script src="https://connect.trezor.io/4/connect.js"></script>
+<script src="https://connect.safe-t.io/4/connect.js"></script>
 ```
 
 All API calls have a callback argument.  Callback is guaranteed to get called
@@ -40,10 +31,10 @@ require that firmware version or newer (for example, 1.4.0 for Ethereum support)
 We started tagging versions and releasing them to separate URLs, so we don't break
 any existing (and working) integrations.
 
-Currently, we are at version 4, which has an url `https://connect.trezor.io/4/connect.js`. The older version
-at `https://trezor.github.io/connect/connect.js`, `https://connect.trezor.io/3/connect.js`, `https://connect.trezor.io/2/connect.js` is still working, but new features are not being added.
+Currently, version 4 is available at this url: `https://connect.safe-t.io/4/connect.js`.
+It will be kept live even after future versions are added.
 
-With regards to this repo - All updates should go to `master` branch, the releases are in corresponding branches. The `gh-pages` is the same older version, that is used at `trezor.github.io/connect/connect.js`, and it's there for backwards compatibility; please don't touch.
+With regards to this repo - All updates should go to `master` branch, the releases are in corresponding branches.
 
 
 1. [Login](#login)
@@ -56,7 +47,7 @@ With regards to this repo - All updates should go to `master` branch, the releas
 
 ## Login
 
-Challenge-response authentication via TREZOR. To protect against replay attacks,
+Challenge-response authentication via Safe-T mini. To protect against replay attacks,
 you must use a server-side generated and randomized `challenge_hidden` for every
 attempt.  You can also provide a visual challenge that will be shown on the
 device.
@@ -83,7 +74,7 @@ var hosticon = 'https://example.com/icon.png';
 var challenge_hidden = '';
 var challenge_visual = '';
 
-TrezorConnect.requestLogin(hosticon, challenge_hidden, challenge_visual, function (result) {
+SafeTConnect.requestLogin(hosticon, challenge_hidden, challenge_visual, function (result) {
 	if (result.success) {
 		console.log('Public key:', result.public_key); // pubkey in hex
 		console.log('Signature:', result.signature); // signature in hex
@@ -96,16 +87,16 @@ TrezorConnect.requestLogin(hosticon, challenge_hidden, challenge_visual, functio
 
 ### Using HTML button
 
-All `<trezor:login>` tags get transformed into HTML login buttons. The
+All `<safe-t:login>` tags get transformed into HTML login buttons. The
 parameters are exactly the same as for
-[`TrezorConnect.requestLogin`](#using-javascript-api), but `callback` represents
+[`SafeTConnect.requestLogin`](#using-javascript-api), but `callback` represents
 name of global function that gets called with the result.
 
 [Example:](examples/login.html)
 
 ```html
 <script>
-function trezorLoginCallback(result) {
+function safeTLoginCallback(result) {
     if (result.success) {
         console.log('Public key:', result.public_key); // pubkey in hex
         console.log('Signature:', result.signature); // signature in hex
@@ -120,16 +111,16 @@ function trezorLoginCallback(result) {
 <!-- challenges are server-side generated and randomized -->
 <!-- site icon is optional and at least 48x48px -->
 <!-- text is optional -->
-<trezor:login callback="trezorLoginCallback"
+<safe-t:login callback="safeTLoginCallback"
               challenge_hidden="0123456789abcdef"
               challenge_visual="Lorem Ipsum"
-              text="Sign in with TREZOR"
-              icon="https://example.com/icon.png"></trezor:login>
+              text="Sign in with Safe-T"
+              icon="https://example.com/icon.png"></safe-t:login>
 ```
 
-`<trezor:login>` tags are rendered after loading the TREZOR Connect script. In
+`<safe-t:login>` tags are rendered after loading the Safe-T Connect script. In
 case you need to render dynamically created content, call
-`TrezorConnect.renderLoginButtons()`.
+`SafeTConnect.renderLoginButtons()`.
 
 You can restyle the login button to fit the look of your website.  See the
 example in [`examples/login-restyled.html`](examples/login-restyled.html).  The
@@ -150,15 +141,15 @@ written in various languages:
 
 ## Export public key
 
-`TrezorConnect.getXPubKey(path, callback)` retrieves BIP32 extended public key
+`SafeTConnect.getXPubKey(path, callback)` retrieves BIP32 extended public key
 by path. User is presented with a description of the requested key and asked to
 confirm the export.
 
 If you want to use this method with altcoins you need to set currency using method:
 ```javascript
-    TrezorConnect.setCurrency(coin);
+    SafeTConnect.setCurrency(coin);
 ```
-where coin is a string parameter with coin_name, coin_shortcut or coin_label declared in [`coins.json`](https://github.com/trezor/trezor-common/blob/master/coins.json) file.
+where coin is a string parameter with coin_name, coin_shortcut or coin_label declared in [`coins.json`](https://github.com/archos-safe-t/safe-t-common/blob/master/coins.json) file.
 By default currency is set to Bitcoin.
 
 [Example:](examples/xpubkey.html)
@@ -170,8 +161,8 @@ var path = "m/44'/0'/0'"; // first BIP44 account
 //             0  | 0x80000000,
 //             0  | 0x80000000]; // same, in raw form
 
-TrezorConnect.setCurrency('BTC');
-TrezorConnect.getXPubKey(path, function (result) {
+SafeTConnect.setCurrency('BTC');
+SafeTConnect.getXPubKey(path, function (result) {
     if (result.success) {
         console.log('XPUB:', result.xpubkey); // serialized XPUB
     } else {
@@ -186,18 +177,18 @@ exported.  [Example.](examples/xpubkey-discovery.html)
 
 ## Sign transaction
 
-`TrezorConnect.signTx(inputs, outputs, callback)` asks device to sign given
+`SafeTConnect.signTx(inputs, outputs, callback)` asks device to sign given
 inputs and outputs of pre-composed transaction.  User is asked to confirm all tx
-details on TREZOR.
+details on Safe-T.
 
-- `inputs`: array of [`TxInputType`](https://github.com/trezor/trezor-common/blob/master/protob/types.proto#L145-L158)
-- `outputs`: array of [`TxOutputType`](https://github.com/trezor/trezor-common/blob/master/protob/types.proto#L160-L172)
+- `inputs`: array of [`TxInputType`](https://github.com/archos-safe-t/safe-t-common/blob/master/protob/types.proto#L145-L158)
+- `outputs`: array of [`TxOutputType`](https://github.com/archos-safe-t/safe-t-common/blob/master/protob/types.proto#L160-L172)
 
 If you want to use this method with altcoins you need to set currency using method:
 ```javascript
-    TrezorConnect.setCurrency(coin);
+    SafeTConnect.setCurrency(coin);
 ```
-where coin is a string parameter with coin_name, coin_shortcut or coin_label declared in [`coins.json`](https://github.com/trezor/trezor-common/blob/master/coins.json) file.
+where coin is a string parameter with coin_name, coin_shortcut or coin_label declared in [`coins.json`](https://github.com/archos-safe-t/safe-t-common/blob/master/coins.json) file.
 By default currency is set to Bitcoin.
 
 [PAYTOADDRESS example:](examples/signtx-paytoaddress.html)
@@ -221,8 +212,8 @@ var outputs = [{
     script_type: 'PAYTOADDRESS'
 }];
 
-TrezorConnect.setCurrency('BTC');
-TrezorConnect.signTx(inputs, outputs, function (result) {
+SafeTConnect.setCurrency('BTC');
+SafeTConnect.signTx(inputs, outputs, function (result) {
     if (result.success) {
         console.log('Transaction:', result.serialized_tx); // tx in hex
         console.log('Signatures:', result.signatures); // array of signatures, in hex
@@ -254,8 +245,8 @@ var outputs = [{
     script_type: 'PAYTOADDRESS'
 }];
 
-TrezorConnect.setCurrency('BTC');
-TrezorConnect.signTx(inputs, outputs, function (result) {
+SafeTConnect.setCurrency('BTC');
+SafeTConnect.signTx(inputs, outputs, function (result) {
     if (result.success) {
         console.log('Transaction:', result.serialized_tx); // tx in hex
         console.log('Signatures:', result.signatures); // array of signatures, in hex
@@ -270,7 +261,7 @@ TrezorConnect.signTx(inputs, outputs, function (result) {
 ## Sign Ethereum transaction
 
 ```javascript
-TrezorConnect.ethereumSignTx(
+SafeTConnect.ethereumSignTx(
   address_n, // address path - either array or string, see example
   nonce,     // nonce - hexadecimal string
   gas_price, // gas price - hexadecimal string
@@ -291,7 +282,7 @@ All the hexa strings are *without* the '0x' prefix, *including the address*.
 
 ## Request payment
 
-`TrezorConnect.composeAndSignTx(recipients, callback)` requests a payment from
+`SafeTConnect.composeAndSignTx(recipients, callback)` requests a payment from
 the user's wallet to a set of given recipients.  Internally, a BIP-0044 account
 discovery is performed, user is presented with a list of accounts.  After
 selecting an account, transaction is composed by internal coin-selection
@@ -300,9 +291,9 @@ preferences.  Transaction is then signed and returned in the same format as
 
 If you want to use this method with altcoins you need to set currency using method:
 ```javascript
-    TrezorConnect.setCurrency(coin);
+    SafeTConnect.setCurrency(coin);
 ```
-where coin is a string parameter with coin_name, coin_shortcut or coin_label declared in [`coins.json`](https://github.com/trezor/trezor-common/blob/master/coins.json) file.
+where coin is a string parameter with coin_name, coin_shortcut or coin_label declared in [`coins.json`](https://github.com/archos-safe-t/safe-t-common/blob/master/coins.json) file.
 By default currency is set to Bitcoin.
 
 [Example:](examples/composetx.html)
@@ -313,7 +304,7 @@ var recipients = [{
     amount: 200000
 }];
 
-TrezorConnect.composeAndSignTx(recipients, function (result) {
+SafeTConnect.composeAndSignTx(recipients, function (result) {
     if (result.success) {
         console.log('Serialized TX:', result.serialized_tx); // tx in hex
         console.log('Signatures:', result.signatures); // array of signatures, in hex
@@ -328,9 +319,9 @@ You can also push and broadcast the resulting transaction to the Bitcoin network
 
 [Example:](examples/composetx-push.html)
 ```javascript
-TrezorConnect.composeAndSignTx(outputs, function (result) {
+SafeTConnect.composeAndSignTx(outputs, function (result) {
     if (result.success) {
-        TrezorConnect.pushTransaction(result.serialized_tx, function (pushResult) {
+        SafeTConnect.pushTransaction(result.serialized_tx, function (pushResult) {
             if (pushResult.success) {
                 console.log('Transaction pushed. Id:', pushResult.txid); // ID of the transaction
             } else {
@@ -346,13 +337,13 @@ TrezorConnect.composeAndSignTx(outputs, function (result) {
 
 ## Sign & Verify message
 
-`TrezorConnect.signMessage(path, message, callback [, coin])` asks device to
+`SafeTConnect.signMessage(path, message, callback [, coin])` asks device to
 sign a message using the private key derived by given BIP32 path. Path can be specified
 either as an array of numbers or as string m/A'/B'/C/...
 
 Message is signed and address + signature is returned
 
-`TrezorConnect.verifyMessage(address, signature, message, callback [, coin])` asks device to
+`SafeTConnect.verifyMessage(address, signature, message, callback [, coin])` asks device to
 verify a message using the address and signature.
 
 Message is verified and success is returned.
@@ -364,7 +355,7 @@ Message is verified and success is returned.
 var path="m/44'/0'/0";
 var message='Example message';
 
-TrezorConnect.signMessage(path, message, function (result) {
+SafeTConnect.signMessage(path, message, function (result) {
     if (result.success) {
         console.log('Message signed!', result.signature); // signature in base64
         console.log('Signing address:', result.address); // address in standard b58c form
@@ -377,7 +368,7 @@ TrezorConnect.signMessage(path, message, function (result) {
 var address = '1FS8haK8SCjUyMHCCiDAFLoDD1kQBwc7Zk';
 var signature = 'H4P2mQ0Bc/o5gZ+VU+zclw+ls7c2zLM/g5TfnEzkwdOlJQaEo2OqYwwa5uh+NH71IoOVzMSFPCGA4+7dTy16DQc=';
 
-TrezorConnect.verifyMessage(address, signature, message, function (result) {
+SafeTConnect.verifyMessage(address, signature, message, function (result) {
     if (response.success) {
         console.log("Success! Verified.");
     } else {
@@ -388,11 +379,11 @@ TrezorConnect.verifyMessage(address, signature, message, function (result) {
 
 **note:** The argument coin is optional and defaults to "Bitcoin" if missing.
 
-The message can be UTF-8; however, TREZOR is not displaying non-ascii characters, and third-party apps are not dealing with them correctly either. Therefore, using ASCII only is recommended.
+The message can be UTF-8; however, Safe-T is not displaying non-ascii characters, and third-party apps are not dealing with them correctly either. Therefore, using ASCII only is recommended.
 
 ## Sign & Verify Ethereum message
 
-`TrezorConnect.ethereumSignMessage(path, message, callback)` asks device to
+`SafeTConnect.ethereumSignMessage(path, message, callback)` asks device to
 sign a message using the private key derived by given BIP32 path. Path can be specified
 either as an array of numbers or as string m/A'/B'/C/...
 
@@ -403,7 +394,7 @@ Message is signed and address + signature is returned
 ```javascript
 var path="m/44'/0'/0";
 var message="Example message";
-TrezorConnect.ethereumSignMessage(path, message, function (result) {
+SafeTConnect.ethereumSignMessage(path, message, function (result) {
     if (result.success) {
         console.log('Message signed!', result.signature); // signature in hex
         console.log('Signing address:', result.address); // address in standard b58c form
@@ -412,11 +403,11 @@ TrezorConnect.ethereumSignMessage(path, message, function (result) {
     }
 });
 ```
-The message can be UTF-8; however, TREZOR is not displaying non-ascii characters, and third-party apps are not dealing with them correctly either. Therefore, using ASCII only is recommended.
+The message can be UTF-8; however, Safe-T is not displaying non-ascii characters, and third-party apps are not dealing with them correctly either. Therefore, using ASCII only is recommended.
 
 ## Verify Ethereum message
 
-`TrezorConnect.ethereumVerifyMessage(address, signature, message, callback)` asks device to
+`SafeTConnect.ethereumVerifyMessage(address, signature, message, callback)` asks device to
 verify a message using the ethereum address and signature.
 
 Message is verified and success is returned.
@@ -427,7 +418,7 @@ Message is verified and success is returned.
 var address="b1125f399310202822d7ee3eed38a65481a928ec"; // address in hex
 var signature="7eb0c3ebaaabc8ff67a5413a79512293f0184ed3d136fc873f188b3dd39e043f3036f42c75c7c05e236b37f75dbe4b154437391bbe219e5e8d7d69ac4d89d6231c"; // signature in hex
 var message="Example message"; // message utf8
-TrezorConnect.ethereumVerifyMessage(path, signature, message, function (result) {
+SafeTConnect.ethereumVerifyMessage(path, signature, message, function (result) {
     if (result.success) {
         console.log(result.success);
     } else {
@@ -435,11 +426,11 @@ TrezorConnect.ethereumVerifyMessage(path, signature, message, function (result) 
     }
 });
 ```
-The message can be UTF-8; however, TREZOR is not displaying non-ascii characters, and third-party apps are not dealing with them correctly either. Therefore, using ASCII only is recommended.
+The message can be UTF-8; however, Safe-T is not displaying non-ascii characters, and third-party apps are not dealing with them correctly either. Therefore, using ASCII only is recommended.
 
 ## Symmetric key-value encryption
 
-`TrezorConnect.cipherKeyValue(path, key, value, encrypt, ask_on_encrypt, ask_on_decrypt, callback)` asks device to
+`SafeTConnect.cipherKeyValue(path, key, value, encrypt, ask_on_encrypt, ask_on_decrypt, callback)` asks device to
 encrypt value
 using the private key derived by given BIP32 path and the given key. Path can be specified
 either as an array of numbers or as string m/A'/B'/C/... , value must be hexadecimal value - with length a multiple of 16 bytes (so 32 letters in hexadecimal).
@@ -450,13 +441,13 @@ More information can be found in [SLIP-0011](https://github.com/satoshilabs/slip
 
 ```javascript
 var path = "m/44'/0'/0";
-var key = 'This is displayed on TREZOR on encrypt.';
+var key = 'This is displayed on Safe-T on encrypt.';
 var value = '1c0ffeec0ffeec0ffeec0ffeec0ffee1';
 var encrypt = true;
 var ask_on_encrypt = true;
 var ask_on_decrypt = false;
 
-TrezorConnect.cipherKeyValue(path, key, value, encrypt, ask_on_encrypt, ask_on_decrypt, function (result) {
+SafeTConnect.cipherKeyValue(path, key, value, encrypt, ask_on_encrypt, ask_on_decrypt, function (result) {
     if (result.success) {
         console.log('Encrypted!', result.value); // in hexadecimal
     } else {
@@ -467,13 +458,13 @@ TrezorConnect.cipherKeyValue(path, key, value, encrypt, ask_on_encrypt, ask_on_d
 
 ## Get account info
 
-`TrezorConnect.getAccountInfo(description, callback)` gets an info of an account.
+`SafeTConnect.getAccountInfo(description, callback)` gets an info of an account.
 
 [Example:](examples/accountinfo.html)
 ```javascript
 var description = "m/44'/0'/2'"; // third account (see below)
 
-TrezorConnect.getAccountInfo(description, function (result) {
+SafeTConnect.getAccountInfo(description, function (result) {
     if (result.success) { // success
         console.log('Account ID: ', result.id);
         console.log('Account path: ', result.path);
@@ -507,7 +498,7 @@ Description can be one of the following:
 
 ## Show address / get address
 
-`TrezorConnect.getAddress(path, coin, segwit, callback)` shows address on device and returns it to caller
+`SafeTConnect.getAddress(path, coin, segwit, callback)` shows address on device and returns it to caller
 
 [Example:](examples/accountinfo.html)
 ```javascript
@@ -515,7 +506,7 @@ var path = "m/44'/0'/2'/0/0";
 var coin = "Testnet";  // "Bitcoin", "Litecoin", etc
 var segwit = true; // segwit makes sense only on Litecoin and Testnet
 
-TrezorConnect.getAddress(path, coin, segwit, function (response) {
+SafeTConnect.getAddress(path, coin, segwit, function (response) {
     if (result.success) { // success
         console.log('Address: ', result.address);
     } else {
@@ -526,13 +517,13 @@ TrezorConnect.getAddress(path, coin, segwit, function (response) {
 
 ## Ethereum - Show address / get address
 
-`TrezorConnect.ethereumGetAddress(path, callback)` shows address on device and returns it to caller
+`SafeTConnect.ethereumGetAddress(path, callback)` shows address on device and returns it to caller
 
 [Example:](examples/accountinfo.html)
 ```javascript
 var path = "m/44'/60'/0'/0/0"
 
-TrezorConnect.ethereumGetAddress(path, function (response) {
+SafeTConnect.ethereumGetAddress(path, function (response) {
     if (result.success) { // success
         console.log('Address: ', result.address);
     } else {

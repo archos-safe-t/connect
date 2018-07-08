@@ -2,7 +2,7 @@
 <html>
   <head>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <title>TREZOR Sign Message Test</title>
+    <title>Safe-T Sign Message Test</title>
     <style>
       table {
         display: inline-block;
@@ -32,7 +32,7 @@
     </style>
     <script>
 
-    function trezorSignMessage() {
+    function safeTSignMessage() {
  
       var path = document.getElementById("path").value;
       var message = document.getElementById("message").value;
@@ -43,7 +43,7 @@
       var signature = document.getElementById("signature");
       var messageV = document.getElementById("messageV");
 
-       TrezorConnect.signMessage(path, message, function (response) {
+       SafeTConnect.signMessage(path, message, function (response) {
            if (response.success) {
             	address.value = response.address;
               messageV.value = message;
@@ -57,7 +57,7 @@
        }, coin);
     }
 
-    function trezorVerifyMessage() {
+    function safeTVerifyMessage() {
       var messageV = document.getElementById("messageV").value;
       var address = document.getElementById("address").value;
       var signature = document.getElementById("signature").value;
@@ -66,7 +66,7 @@
 
       console.log(address, signature, messageV, coin)
 
-      TrezorConnect.verifyMessage(address, signature, messageV, function (response) {
+      SafeTConnect.verifyMessage(address, signature, messageV, function (response) {
         if (response.success) {
             console.log("Success! Verified.");
         } else {
@@ -125,7 +125,7 @@
     </tr>
     <tr>
       <td></td>
-      <td><button onclick="trezorSignMessage()">Sign Message</button></td>
+      <td><button onclick="safeTSignMessage()">Sign Message</button></td>
     </tr>
   </table>
 
@@ -148,7 +148,7 @@
     <tr>
       <td></td>
       <td>
-        <button onclick="trezorVerifyMessage()">Verify Message</button>
+        <button onclick="safeTVerifyMessage()">Verify Message</button>
       </td>
     </tr>
   </table>

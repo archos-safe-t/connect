@@ -1,11 +1,11 @@
 {
-  "name": "trezor-connect",
+  "name": "safe-t-connect",
   "version": "1.0.0",
-  "description": "High-level interface for TREZOR hardware wallet.",
+  "description": "High-level interface for Safe-T hardware wallet.",
   "main": "popup.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trezor/connect.git"
+    "url": "https://github.com/archos/safe-t-connect.git"
   },
   "author": "SatoshiLabs <http://satoshilabs.com>",
   "license": "LGPL-3.0+",
@@ -28,18 +28,20 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/trezor/connect/issues"
+    "url": "https://github.com/archos/safe-t-connect/issues"
   },
-  "homepage": "https://github.com/trezor/connect",
+  "homepage": "https://github.com/archos/safe-t-connect",
   "dependencies": {
     "bip32-utils": "^0.10.0",
     "bip44-constants": "^3.0.0",
+    "bitcoinjs-lib": "^3.0.0",
     "bitcoinjs-lib-zcash": "^3.0.0",
     "bowser": "^1.0.0",
     "cb-insight": "^0.1.0",
     "es6-promise": "^4.1.1",
     "hd-wallet": "3.5.2",
-    "trezor.js": "^6.15.14",
+    "semver": "^5.5.0",
+    "semver-compare": "^1.0.0",
     "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {

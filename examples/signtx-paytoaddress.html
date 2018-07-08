@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Sign Transaction Test</title>
+    <title>Safe-T Sign Transaction Test</title>
     <script>
 
     // this example requires a device loaded with seed:
     // alcohol woman abuse must during monitor noble actual mixed trade anger aisle
 
     // Python tests:
-    // https://github.com/trezor/python-trezor/blob/master/tests/device_tests/test_msg_signtx.py
+    // https://github.com/archos-safe-t/python-safet/blob/master/tests/device_tests/test_msg_signtx.py
 
-    function trezorSignTx(testId) {
+    function safeTSignTx(testId) {
 
         // legacy input
         var inp1 = {
@@ -62,23 +62,23 @@
             case 0: // One output external
                 inputs = [ inp1 ];
                 outputs = [ out1 ];
-                TrezorConnect.setCurrency('btc');
+                SafeTConnect.setCurrency('btc');
             break;
             case 1: // First output external, second output internal
                 var cloneOfOut1 = JSON.parse(JSON.stringify(out1));
                 cloneOfOut1.amount = out1.amount - out2.amount;
                 inputs = [ inp1 ];
                 outputs = [ cloneOfOut1, out2 ];
-                TrezorConnect.setCurrency('btc');
+                SafeTConnect.setCurrency('btc');
             break;
             case 2: // Segwit input, Segwit change output + external output
                 inputs = [ inp2 ];
                 outputs = [ out3, out4 ];
-                TrezorConnect.setCurrency('testnet');
+                SafeTConnect.setCurrency('testnet');
             break;
         }
         
-        TrezorConnect.signTx(inputs, outputs, function (response) {
+        SafeTConnect.signTx(inputs, outputs, function (response) {
             if (response.success) {
                 console.log('Serialized TX:', response.serialized_tx); // tx in hex
                 console.log('Signatures:', response.signatures); // array of signatures, in hex
@@ -96,12 +96,12 @@
     <p>This example requires a device loaded with seed:</p>
     <pre>alcohol woman abuse must during monitor noble actual mixed trade anger aisle</pre>
 
-    <button onclick="trezorSignTx(0)">One output external</button><br/>
-    <button onclick="trezorSignTx(1)">First output external, second output internal</button><br/>
+    <button onclick="safeTSignTx(0)">One output external</button><br/>
+    <button onclick="safeTSignTx(1)">First output external, second output internal</button><br/>
 
     <p>This example requires a device loaded with seed:</p>
     <pre>all all all all all all all all all all all all</pre>
-    <button onclick="trezorSignTx(2)">Segwit input, Segwit change output + external output</button>
+    <button onclick="safeTSignTx(2)">Segwit input, Segwit change output + external output</button>
 
     <pre id="response"></pre>
 

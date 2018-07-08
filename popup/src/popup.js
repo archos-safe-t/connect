@@ -10,7 +10,8 @@ import 'babel-polyfill';
 
 import bowser from 'bowser';
 import * as bitcoin from 'bitcoinjs-lib-zcash';
-import * as trezor from 'trezor.js';
+import * as trezor from 'safe-t.js';
+import * as SafeTLink from 'safe-t-link';
 import * as hd from 'hd-wallet';
 
 import TrezorAccount from './account/Account';
@@ -33,6 +34,10 @@ const SCRIPT_TYPES = {
     [NETWORK.scriptHash]: 'PAYTOSCRIPTHASH'
 };
 const CONFIG_URL = './config_signed.bin';
+
+const BRIDGE_NEWEST_VERSION_URL = "./bridge_version.html";
+const TRANSPORT_DEBUG = true;
+const BRIDGE_LOCAL_URL = "http://127.0.0.1:21326"; // Port++ compared to trezor bridge to avoid conflict when both are running
 
 var CHUNK_SIZE = 20;
 var GAP_LENGTH = 20;
@@ -1349,13 +1354,21 @@ function initDevice({emptyPassphrase} = {}) {
 }
 
 function initTransport() {
-
-
     let timestamp = new Date().getTime();
     let configUrl = CONFIG_URL + '?' + timestamp;
+    let transport = new SafeTLink.BridgeV2(
+        BRIDGE_LOCAL_URL,
+        BRIDGE_NEWEST_VERSION_URL
+    )
 
     let result = new Promise((resolve, reject) => {
-        let list = new trezor.DeviceList({configUrl});
+        let list = new trezor.DeviceList({
+            debug: TRANSPORT_DEBUG,
+            debugInfo: TRANSPORT_DEBUG,
+            bridgeVersionUrl: BRIDGE_NEWEST_VERSION_URL,
+            configUrl: configUrl,
+            transport: transport
+        });
         let onError;
         let onTransport = () => {
             list.removeListener('error', onError);

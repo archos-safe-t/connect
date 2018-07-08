@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Get Address Test</title>
+    <title>Safe-T Get Address Test</title>
     <script>
 
-     function trezorGetAddress() {
+     function safeTGetAddress() {
         var path = document.getElementById('address').value;
         // var path = "m/44'/0'/2'" // third account 
                                     // (note that names on connect start with Account 1, which has index 0)
@@ -19,29 +19,29 @@
 
         if (coin === 'Bitcoin Cash') coin = 'Bcash';
 
-        TrezorConnect.getAddress(path, coin, segwit, function (response) {
-            console.log("TrezorConnect.getAddress response", response);
+        SafeTConnect.getAddress(path, coin, segwit, function (response) {
+            console.log("SafeTConnect.getAddress response", response);
             document.getElementById("response").innerHTML = JSON.stringify(response, undefined, 2);
         });
      }
 
-    function trezorEthereumGetAddress() {
+    function safeTEthereumGetAddress() {
       var path = document.getElementById('ethaddress').value;
 
-      TrezorConnect.ethereumGetAddress(path, function (response) {
-        console.log("TrezorConnect.ethereumGetAddress", response);
+      SafeTConnect.ethereumGetAddress(path, function (response) {
+        console.log("SafeTConnect.ethereumGetAddress", response);
         document.getElementById("response").innerHTML = JSON.stringify(response, undefined, 2);
       });
     }
 
-    function trezorNemGetAddress(network) {
+    function safeTNemGetAddress(network) {
       var path = document.getElementById('nemaddress').value;
 
       // network: 0x68 nem mainnet
       // network: 0x98 nem testnet
-      TrezorConnect.closeAfterFailure(false);
-      TrezorConnect.nemGetAddress(path, network, function (response) {
-        console.log("TrezorConnect.nemGetAddress", response);
+      SafeTConnect.closeAfterFailure(false);
+      SafeTConnect.nemGetAddress(path, network, function (response) {
+        console.log("SafeTConnect.nemGetAddress", response);
         document.getElementById("response").innerHTML = JSON.stringify(response, undefined, 2);
       }, '1.5.2');
     }
@@ -80,7 +80,7 @@
   </head>
   <body>
     <div>
-        <h3>TrezorConnect.getAddress</h3>
+        <h3>SafeTConnect.getAddress</h3>
         <select id="coin" name="coin" style="display: inline-block;" onchange="handleCoinChange(this)">
             <option>Bitcoin</option>
             <option>Bitcoin Cash</option>
@@ -94,24 +94,24 @@
         </select>
         <input type="text" id="address" name="address" value="m/49'/0'/0'/0/0" style="display: inline-block;" />
         <input type="checkbox" id="segwit" onchange="handleSegwitChange(this)" checked /> Segwit
-        <button onclick="trezorGetAddress()" style="display: inline-block;">Get Address</button>
+        <button onclick="safeTGetAddress()" style="display: inline-block;">Get Address</button>
     </div>
     
     <hr/>
 
     <div>
-        <h3>TrezorConnect.ethereumGetAddress</h3>
+        <h3>SafeTConnect.ethereumGetAddress</h3>
         <input type="text" id="ethaddress" name="ethaddress" value="m/44'/60'/0'/0/0" />
-        <button onclick="trezorEthereumGetAddress()">Ethereum Get Address</button>
+        <button onclick="safeTEthereumGetAddress()">Ethereum Get Address</button>
     </div>
 
     <hr/>
     
     <div>
-        <h3>TrezorConnect.nemGetAddress</h3>
+        <h3>SafeTConnect.nemGetAddress</h3>
         <input type="text" id="nemaddress" name="nemaddress" value="m/44'/1'/0'/0'/0'" />
-        <button onclick="trezorNemGetAddress(0x68)">NEM Get Address</button>
-        <button onclick="trezorNemGetAddress(0x98)">NEM Get Address (NEM Testnet)</button>
+        <button onclick="safeTNemGetAddress(0x68)">NEM Get Address</button>
+        <button onclick="safeTNemGetAddress(0x98)">NEM Get Address (NEM Testnet)</button>
     </div>
     
     <pre id="response"></pre>

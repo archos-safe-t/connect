@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Get XPUB Key Test</title>
+    <title>Safe-T Get XPUB Key Test</title>
     <style>
     input[type="text"]:disabled {
         background: #dddddd;
@@ -9,7 +9,7 @@
     </style>
     <script>
 
-    function trezorGetXPubKey() {
+    function safeTGetXPubKey() {
         var path = document.getElementById('account_path').value;
         var coin = document.getElementById('coin').value;
 
@@ -19,8 +19,8 @@
         //             0  | 0x80000000,
         //             0  | 0x80000000 ]; // path in raw form
 
-        TrezorConnect.setCurrency(coin); // set backend
-        TrezorConnect.getXPubKey(path, function (response) {
+        SafeTConnect.setCurrency(coin); // set backend
+        SafeTConnect.getXPubKey(path, function (response) {
             if (response.success) {
                 console.log('XPUB:', response.xpubkey); // serialized XPUB
                 console.log('Raw path:', response.path);
@@ -80,7 +80,7 @@
 
     <input id="account_path" type="text" value="m/49'/0'/0'" />
     <input type="checkbox" id="discovery" onchange="handleDiscoveryChange(this)" /> Discover account
-    <button onclick="trezorGetXPubKey()">Get XPUB key</button>
+    <button onclick="safeTGetXPubKey()">Get XPUB key</button>
 
     <pre id="response"></pre>
 

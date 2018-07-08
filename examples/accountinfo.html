@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Get account info</title>
+    <title>Safe-T Get account info</title>
     <script>
     
     // Predefined xpub are taken from device loaded with seed account#1:
@@ -32,7 +32,7 @@
         xpub: "tpubDDfS76c9NLz6v8CxwsCBi6YFcW463axCZpc3FR26othehmeXowmSBJ6TVPYYqhkekpivwRgkvdHgy8bCp5eHrqu33bGanQQH2qnVbPLUJEh"
     }
 
-    function trezorGetAccountInfo(elementID) {
+    function safeTGetAccountInfo(elementID) {
 
         var coin = document.getElementById('coin').value;
         var element = document.getElementById(elementID);
@@ -69,8 +69,8 @@
         // this one is from test account, specified here
         // https://github.com/satoshilabs/slips/blob/master/slip-0014.md
 
-        TrezorConnect.setCurrency(coin);
-        TrezorConnect.getAccountInfo(description, function (response) {
+        SafeTConnect.setCurrency(coin);
+        SafeTConnect.getAccountInfo(description, function (response) {
             if (response.success) {
                 console.log('Account ID: ', response.id);
                 console.log('Account path: ', response.path);
@@ -126,18 +126,18 @@
         <option value="9">Account #10</option>
     </select>
     <br/>
-    <button onclick="trezorGetAccountInfo('account_index')">Get account info using index</button>
+    <button onclick="safeTGetAccountInfo('account_index')">Get account info using index</button>
 
     <hr />
 
     <input id="account_path" type="text" value="m/49'/0'/0'" />
     <br />
-    <button onclick="trezorGetAccountInfo('account_path')">Get account info using path</button>
+    <button onclick="safeTGetAccountInfo('account_path')">Get account info using path</button>
     <hr />
 
     <input id="account_xpub" type="text" size="130" value="xpub6D1weXBcFAo8CqBbpP4TbH5sxQH8ZkqC5pDEvJ95rNNBZC9zrKmZP2fXMuve7ZRBe18pWQQsGg68jkq24mZchHwYENd8cCiSb71u3KD4AFH" />
     <br />
-    <button onclick="trezorGetAccountInfo('account_xpub')">Get account info using xpub</button>
+    <button onclick="safeTGetAccountInfo('account_xpub')">Get account info using xpub</button>
 
     <pre id="response"></pre>
 

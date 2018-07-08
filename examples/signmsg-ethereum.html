@@ -2,7 +2,7 @@
 <html>
   <head>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <title>TREZOR Ethereum Sign Message Test</title>
+    <title>Safe-T Ethereum Sign Message Test</title>
     <style>
       table {
         display: inline-block;
@@ -32,7 +32,7 @@
     </style>
     <script>
 
-    function trezorSignMessage() {
+    function safeTSignMessage() {
 
       var path = document.getElementById("path");
       var message = document.getElementById("message");
@@ -41,7 +41,7 @@
       var signature = document.getElementById("signature");
 
 
-      TrezorConnect.ethereumSignMessage(path.value, message.value, function (response) {
+      SafeTConnect.ethereumSignMessage(path.value, message.value, function (response) {
           if (response.success) {
               address.value = response.address;
               messageV.value = message.value;
@@ -55,12 +55,12 @@
       }, '1.5.1');
     }
 
-    function trezorVerifyMessage() {
+    function safeTVerifyMessage() {
       var messageV = document.getElementById("messageV");
       var address = document.getElementById("address");
       var signature = document.getElementById("signature");
 
-      TrezorConnect.ethereumVerifyMessage(address.value, signature.value, messageV.value, function (response) {
+      SafeTConnect.ethereumVerifyMessage(address.value, signature.value, messageV.value, function (response) {
           document.getElementById("response").innerHTML = JSON.stringify(response, undefined, 2);
       }, '1.5.1');
     }
@@ -84,7 +84,7 @@
     <tr>
       <td></td>
       <td>
-        <button onclick="trezorSignMessage()">Sign Message</button>
+        <button onclick="safeTSignMessage()">Sign Message</button>
       </td>
     </tr>
   </table>
@@ -108,7 +108,7 @@
     <tr>
       <td></td>
       <td>
-        <button onclick="trezorVerifyMessage()">Verify Message</button>
+        <button onclick="safeTVerifyMessage()">Verify Message</button>
       </td>
     </tr>
   </table>

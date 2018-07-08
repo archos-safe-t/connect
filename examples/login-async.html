@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Login Test</title>
+    <title>Safe-T Login Test</title>
     <script>
 
-     function trezorLogin() {
+     function safeTLogin() {
          // we need to asynchronously generate the challenges, but a popup needs
          // to be open synchronously to make popup blockers happy
-         TrezorConnect.open(function (error) {
+         SafeTConnect.open(function (error) {
              if (error) {
                  console.error('Error:', error);
              } else {
-                 generateChallenges(doTrezorLogin);
+                 generateChallenges(dosafeTLogin);
              }
          });
      }
@@ -25,11 +25,11 @@
          }, 500);
      }
 
-     function doTrezorLogin(challenge_hidden, challenge_visual) {
+     function dosafeTLogin(challenge_hidden, challenge_visual) {
          // site icon, optional. at least 48x48px
          var hosticon = 'https://doc.satoshilabs.com/trezor-apps/_images/copay_logo.png';
 
-         TrezorConnect.requestLogin(hosticon, challenge_hidden, challenge_visual, function (response) {
+         SafeTConnect.requestLogin(hosticon, challenge_hidden, challenge_visual, function (response) {
              if (response.success) {
                  console.log('Public key:', response.public_key); // pubkey in hex
                  console.log('Signature:', response.signature); // signature in hex
@@ -45,7 +45,7 @@
   </head>
   <body>
 
-    <button onclick="trezorLogin()">Sign In</button>
+    <button onclick="safeTLogin()">Sign In</button>
 
     <pre id="response"></pre>
 

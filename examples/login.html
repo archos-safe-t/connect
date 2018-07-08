@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TREZOR Login Test</title>
+<title>Safe-T Login Test</title>
 <script type="text/javascript">
 
-function trezorLogin(response) {
+function safeTLogin(response) {
     document.getElementById("response").innerHTML = JSON.stringify(response, undefined, 2);
     console.log(response);
 }
@@ -13,32 +13,32 @@ function trezorLogin(response) {
 </head>
 <body>
 
-<trezor:login callback="trezorLogin"></trezor:login>
+<safe-t:login callback="safeTLogin"></safe-t:login>
 
 <pre id="response"></pre>
 
 <!--
 // You can use custom icon (i.e. not TREZOR logo) by setting the
-// icon attribute of the trezor:login tag.
+// icon attribute of the safe-t:login tag.
 
-<trezor:login icon="https://example.com/icon.png">
-</trezor:login>
+<safe-t:login icon="https://example.com/icon.png">
+</safe-t:login>
 
 // You can use custom hidden/visual challenges (i.e. not generated
 // by Connect) by setting the challenge_hidden/challenge_visual
-// attributes of the trezor:login tag.
+// attributes of the safe-t:login tag.
 // This can be done either on the server side while rendering
 // the page contents like this:
 
-<trezor:login callback="trezorLogin"
+<safe-t:login callback="safeTLogin"
               challenge_hidden="0123456789abcdef"
               challenge_visual="Lorem Ipsum">
-</trezor:login>
+</safe-t:login>
 
 // ... or using the following script on the client side:
 
 <script>
-var elements = document.getElementsByTagName('trezor:login');
+var elements = document.getElementsByTagName('safe-t:login');
 var e = elements[0];
 e.setAttribute('challenge_hidden', '0123456789abcdef');
 e.setAttribute('challenge_visual', 'Lorem Ipsum');

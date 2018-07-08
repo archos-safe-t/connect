@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Get Ethereum XPUB Key Test</title>
+    <title>Safe-T Get Ethereum XPUB Key Test</title>
     <script>
 
-     function trezorGetXPubKey() {
+     function safeTGetXPubKey() {
          var path = "m/44'/60'/0'"; 
 
          // var path = [44 | 0x80000000,
@@ -12,7 +12,7 @@
          //             0  | 0x80000000 ,
          //             0 ]; // same, in raw form
 
-         TrezorConnect.getXPubKey(path, function (response) {
+         SafeTConnect.getXPubKey(path, function (response) {
              if (response.success) {
                  console.log('XPUB:', response.xpubkey); // serialized XPUB
                  console.log('Raw path:', response.path);
@@ -30,7 +30,7 @@
   </head>
   <body>
 
-    <button onclick="trezorGetXPubKey()">Get XPUB key</button>
+    <button onclick="safeTGetXPubKey()">Get XPUB key</button>
 
     <pre id="response"></pre>
 

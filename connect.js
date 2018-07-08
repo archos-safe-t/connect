@@ -3,7 +3,11 @@
  *
  * GPLv3
  */
-var TREZOR_CONNECT_VERSION = 4;
+var SAFE_T_CONNECT_VERSION = 4;
+
+
+// LOCAL TEST
+window.SAFE_T_POPUP_ORIGIN = 'http://localhost:8000'
 
 if (!Array.isArray) {
     Array.isArray = function(arg) {
@@ -21,7 +25,7 @@ function _fwStrFix(obj, fw) {
     return obj;
 }
 
-this.TrezorConnect = (function () {
+this.SafeTConnect = (function () {
     'use strict';
 
     var chrome = window.chrome;
@@ -33,18 +37,18 @@ this.TrezorConnect = (function () {
     var ERR_ALREADY_WAITING = 'Already waiting for a response';
     var ERR_CHROME_NOT_CONNECTED = 'Internal Chrome popup is not responding.';
 
-    var DISABLE_LOGIN_BUTTONS = window.TREZOR_DISABLE_LOGIN_BUTTONS || false;
-    var CHROME_URL = window.TREZOR_CHROME_URL || './chrome/wrapper.html';
-    var POPUP_ORIGIN = window.TREZOR_POPUP_ORIGIN || 'https://connect.trezor.io';
-    var POPUP_PATH = window.TREZOR_POPUP_PATH || POPUP_ORIGIN + '/' + TREZOR_CONNECT_VERSION;
-    var POPUP_URL = window.TREZOR_POPUP_URL || POPUP_PATH + '/popup/popup.html?v=' + new Date().getTime();
+    var DISABLE_LOGIN_BUTTONS = window.SAFE_T_DISABLE_LOGIN_BUTTONS || false;
+    var CHROME_URL = window.SAFE_T_CHROME_URL || './chrome/wrapper.html';
+    var POPUP_ORIGIN = window.SAFE_T_POPUP_ORIGIN || 'https://connect.safe-t.io';
+    var POPUP_PATH = window.SAFE_T_POPUP_PATH || POPUP_ORIGIN + '/' + SAFE_T_CONNECT_VERSION;
+    var POPUP_URL = window.SAFE_T_POPUP_URL || POPUP_PATH + '/popup/popup.html?v=' + new Date().getTime();
 
     var POPUP_INIT_TIMEOUT = 15000;
 
     /**
      * Public API.
      */
-    function TrezorConnect() {
+    function SafeTConnect() {
 
         var manager = new PopupManager();
 
@@ -347,12 +351,12 @@ this.TrezorConnect = (function () {
             requiredFirmware
         ) {
             if (typeof callback === 'string') {
-                // special case for a login through <trezor:login> button.
+                // special case for a login through <safe-t:login> button.
                 // `callback` is name of global var
                 callback = window[callback];
             }
             if (!callback) {
-                throw new TypeError('TrezorConnect: login callback not found');
+                throw new TypeError('SafeTConnect: login callback not found');
             }
             manager.sendWithChannel(_fwStrFix({
                 type: 'login',
@@ -394,7 +398,7 @@ this.TrezorConnect = (function () {
                 opt_coin = 'Bitcoin';
             }
             if (!callback) {
-                throw new TypeError('TrezorConnect: callback not found');
+                throw new TypeError('SafeTConnect: callback not found');
             }
             manager.sendWithChannel(_fwStrFix({
                 type: 'signmsg',
@@ -423,7 +427,7 @@ this.TrezorConnect = (function () {
                 path = parseHDPath(path);
             }
             if (!callback) {
-                throw new TypeError('TrezorConnect: callback not found');
+                throw new TypeError('SafeTConnect: callback not found');
             }
             manager.sendWithChannel(_fwStrFix({
                 type: 'signethmsg',
@@ -455,7 +459,7 @@ this.TrezorConnect = (function () {
                 opt_coin = 'Bitcoin';
             }
             if (!callback) {
-                throw new TypeError('TrezorConnect: callback not found');
+                throw new TypeError('SafeTConnect: callback not found');
             }
             manager.sendWithChannel(_fwStrFix({
                 type: 'verifymsg',
@@ -484,7 +488,7 @@ this.TrezorConnect = (function () {
             requiredFirmware
         ) {
             if (!callback) {
-                throw new TypeError('TrezorConnect: callback not found');
+                throw new TypeError('SafeTConnect: callback not found');
             }
             manager.sendWithChannel(_fwStrFix({
                 type: 'verifyethmsg',
@@ -521,17 +525,17 @@ this.TrezorConnect = (function () {
                 path = parseHDPath(path);
             }
             if (typeof value !== 'string') {
-                throw new TypeError('TrezorConnect: Value must be a string');
+                throw new TypeError('SafeTConnect: Value must be a string');
             }
             if (!(/^[0-9A-Fa-f]*$/.test(value))) {
-                throw new TypeError('TrezorConnect: Value must be hexadecimal');
+                throw new TypeError('SafeTConnect: Value must be hexadecimal');
             }
             if (value.length % 32 !== 0) {
                 // 1 byte == 2 hex strings
-                throw new TypeError('TrezorConnect: Value length must be multiple of 16 bytes');
+                throw new TypeError('SafeTConnect: Value length must be multiple of 16 bytes');
             }
             if (!callback) {
-                throw new TypeError('TrezorConnect: callback not found');
+                throw new TypeError('SafeTConnect: callback not found');
             }
             manager.sendWithChannel(_fwStrFix({
                 type: 'cipherkeyvalue',
@@ -587,10 +591,10 @@ this.TrezorConnect = (function () {
           callback
         ) {
             if (!(/^[0-9A-Fa-f]*$/.test(rawTx))) {
-                throw new TypeError('TrezorConnect: Transaction must be hexadecimal');
+                throw new TypeError('SafeTConnect: Transaction must be hexadecimal');
             }
             if (!callback) {
-                throw new TypeError('TrezorConnect: callback not found');
+                throw new TypeError('SafeTConnect: callback not found');
             }
 
             manager.sendWithChannel({
@@ -645,41 +649,41 @@ this.TrezorConnect = (function () {
             '<style>@import url("@connect_path@/login_buttons.css")</style>';
 
         var LOGIN_ONCLICK =
-            'TrezorConnect.requestLogin('
+            'SafeTConnect.requestLogin('
             + "'@hosticon@','@challenge_hidden@','@challenge_visual@','@callback@'"
             + ')';
 
         var LOGIN_HTML =
-            '<div id="trezorconnect-wrapper">'
-            + '  <a id="trezorconnect-button" onclick="' + LOGIN_ONCLICK + '">'
-            + '    <span id="trezorconnect-icon"></span>'
-            + '    <span id="trezorconnect-text">@text@</span>'
+            '<div id="safe-t-connect-wrapper">'
+            + '  <a id="safe-t-connect-button" onclick="' + LOGIN_ONCLICK + '">'
+            + '    <span id="safe-t-connect-icon"></span>'
+            + '    <span id="safe-t-connect-text">@text@</span>'
             + '  </a>'
-            + '  <span id="trezorconnect-info">'
-            + '    <a id="trezorconnect-infolink" href="https://www.buytrezor.com/"'
-            + '       target="_blank">What is TREZOR?</a>'
+            + '  <span id="safe-t-connect-info">'
+            + '    <a id="safe-t-connect-infolink" href="https://www.safe-t.io/"'
+            + '       target="_blank">What is Safe-T?</a>'
             + '  </span>'
             + '</div>';
 
         /**
-         * Find <trezor:login> elements and replace them with login buttons.
+         * Find <safe-t:login> elements and replace them with login buttons.
          * It's not required to use these special elements, feel free to call
-         * `TrezorConnect.requestLogin` directly.
+         * `SafeTConnect.requestLogin` directly.
          */
         this.renderLoginButtons = function () {
-            var elements = document.getElementsByTagName('trezor:login');
+            var elements = document.getElementsByTagName('safe-t:login');
 
             for (var i = 0; i < elements.length; i++) {
                 var e = elements[i];
-                var text = e.getAttribute('text') || 'Sign in with TREZOR';
+                var text = e.getAttribute('text') || 'Sign in with Safe-T';
                 var callback = e.getAttribute('callback') || '';
                 var hosticon = e.getAttribute('icon') || '';
                 var challenge_hidden = e.getAttribute('challenge_hidden') || '';
                 var challenge_visual = e.getAttribute('challenge_visual') || '';
 
                 // it's not valid to put markup into attributes, so let users
-                // supply a raw text and make TREZOR bold
-                text = text.replace('TREZOR', '<strong>TREZOR</strong>');
+                // supply a raw text and make Safe-T bold
+                text = text.replace('Safe-T', '<strong>Safe-T</strong>');
                 e.outerHTML =
                     (LOGIN_CSS + LOGIN_HTML)
                     .replace('@text@', text)
@@ -923,7 +927,7 @@ this.TrezorConnect = (function () {
 
         var open = function (callback) {
             cc = new ConnectedChannel({
-                name: 'trezor-connect',
+                name: 'safe-t-connect',
                 width: 600,
                 height: 500,
                 origin: POPUP_ORIGIN,
@@ -1006,7 +1010,7 @@ this.TrezorConnect = (function () {
         };
     }
 
-    var exports = new TrezorConnect();
+    var exports = new SafeTConnect();
 
     if (!IS_CHROME_APP && !DISABLE_LOGIN_BUTTONS) {
         exports.renderLoginButtons();

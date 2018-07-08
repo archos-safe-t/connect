@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Login Test</title>
+    <title>Safe-T Login Test</title>
     <script>
 
-     function trezorLogin(response) {
+     function safeTLogin(response) {
          document.getElementById("response").innerHTML = JSON.stringify(response, undefined, 2);
          console.log(response);
      }
@@ -13,8 +13,8 @@
   </head>
   <body>
 
-    <trezor:login callback="trezorLogin" text="Pair with TREZOR">
-    </trezor:login>
+    <safe-t:login callback="safeTLogin" text="Pair with Safe-T">
+    </safe-t:login>
 
     <pre id="response"></pre>
 
@@ -23,24 +23,24 @@
     <!--custom font, from Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet'>
 
-    <!--custom style of the Trezor connect-->
+    <!--custom style of the Safe-T connect-->
     <style>
-     #trezorconnect-wrapper {
+     #safe-t-connect-wrapper {
          font-family: 'Courgette', cursive;
      }
-     #trezorconnect-button {
+     #safe-t-connect-button {
          background-color: #ED69BE;
          font-size: 20px;
          border-radius: 10px;
      }
-     #trezorconnect-button:hover {
+     #safe-t-connect-button:hover {
          background-color: #A12977;
      }
-     #trezorconnect-infolink {
+     #safe-t-connect-infolink {
          color: #ED69BE;
          font-size: 13px;
      }
-     #trezorconnect-infolink:hover {
+     #safe-t-connect-infolink:hover {
          color: #A12977;
      }
     </style>

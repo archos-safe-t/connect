@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Login Test</title>
+    <title>Safe-T Login Test</title>
     <script>
 
-     function trezorLogin() {
+     function safeTLogin() {
          // site icon, optional. at least 48x48px
          var hosticon = 'https://doc.satoshilabs.com/trezor-apps/_images/copay_logo.png';
 
@@ -12,7 +12,7 @@
          var challenge_hidden = '';
          var challenge_visual = '';
 
-         TrezorConnect.requestLogin(hosticon, challenge_hidden, challenge_visual, function (response) {
+         SafeTConnect.requestLogin(hosticon, challenge_hidden, challenge_visual, function (response) {
              if (response.success) {
                  console.log('Public key:', response.public_key); // pubkey in hex
                  console.log('Signature:', response.signature); // signature in hex
@@ -28,7 +28,7 @@
   </head>
   <body>
 
-    <button onclick="trezorLogin()">Sign In</button>
+    <button onclick="safeTLogin()">Sign In</button>
 
     <pre id="response"></pre>
 

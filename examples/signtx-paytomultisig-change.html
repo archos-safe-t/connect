@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Sign Transaction Test</title>
+    <title>Safe-T Sign Transaction Test</title>
     <script>
 
-     function trezorSignTx(testId) {
+     function safeTSignTx(testId) {
 
          // this example requires a device loaded with seed:
          // alcohol woman abuse must during monitor noble actual mixed trade anger aisle
 
          // Python tests:
-         // https://github.com/trezor/python-trezor/blob/master/tests/device_tests/test_multisig_change.py
+         // https://github.com/archos-safe-t/python-safet/blob/master/tests/device_tests/test_multisig_change.py
 
-         // for a convenience, TrezorConnect internals convert xpubs to HDNodeType.
+         // for a convenience, SafeTConnect internals convert xpubs to HDNodeType.
          var ext1 = 'xpub6E2LkiC2h7icfcjXPFDmwufDRaaTjTRYcS2nD7eGQeFx1WwZxxvCya5GefiJND6ddJnAjzzMusLcCnu6WyhZPrF6e5G71MWjNJVfs6u9csg';
          var ext2 = 'xpub6FKKCwdfD85eHmKn7d3mmbhqsHnGkB2n7Hmre29gbnR1cR4U1wrtf2akh1VVqjcTdfkxmwPjQyYPhLLgwBijfFPAYqTZzcjj4awB1BMUxq2';
          var ext3 = 'xpub69rsKg2fef3GzETrukhsR3U9i4nL3dXKy3cjSpm44Cg8waqrnyupanaLQt4bYjn2HTmH1NusFt9DAh6absMQqE4E66q7EYTyEsorZKXdWWx';
@@ -201,7 +201,7 @@
             break;
         }
 
-        TrezorConnect.signTx(inputs, outputs, function (response) {
+        SafeTConnect.signTx(inputs, outputs, function (response) {
             if (response.success) {
                 console.log('Serialized TX:', response.serialized_tx); // tx in hex
                 console.log('Signatures:', response.signatures); // array of signatures, in hex
@@ -219,14 +219,14 @@
     <p>This example requires a device loaded with seed:</p>
     <pre>alcohol woman abuse must during monitor noble actual mixed trade anger aisle</pre>
 
-    <button onclick="trezorSignTx(0)">Both outputs are external (#1)</button><br/>
-    <button onclick="trezorSignTx(1)">First output external, second output internal</button><br/>
-    <button onclick="trezorSignTx(2)">First output internal, second output external</button><br/>
-    <button onclick="trezorSignTx(3)">Both outputs are external (#2)</button><br/>
-    <button onclick="trezorSignTx(4)">Inputs match, change matches (first is change)</button><br/>
-    <button onclick="trezorSignTx(5)">Inputs match, change matches (second is change)</button><br/>
-    <button onclick="trezorSignTx(6)">Inputs match, change mismatches (second is change)</button><br/>
-    <button onclick="trezorSignTx(7)">Inputs mismatch, change matches with first input</button><br/>
+    <button onclick="safeTSignTx(0)">Both outputs are external (#1)</button><br/>
+    <button onclick="safeTSignTx(1)">First output external, second output internal</button><br/>
+    <button onclick="safeTSignTx(2)">First output internal, second output external</button><br/>
+    <button onclick="safeTSignTx(3)">Both outputs are external (#2)</button><br/>
+    <button onclick="safeTSignTx(4)">Inputs match, change matches (first is change)</button><br/>
+    <button onclick="safeTSignTx(5)">Inputs match, change matches (second is change)</button><br/>
+    <button onclick="safeTSignTx(6)">Inputs match, change mismatches (second is change)</button><br/>
+    <button onclick="safeTSignTx(7)">Inputs mismatch, change matches with first input</button><br/>
 
     <pre id="response"></pre>
 

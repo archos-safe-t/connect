@@ -1,3 +1,6 @@
 popup/node_modules
 dist
 .DS_Store
+.firebaserc
+firebase.json
+README_Archos.md

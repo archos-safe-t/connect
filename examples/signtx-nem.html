@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TREZOR Sign Transaction Test</title>
+    <title>Safe-T Sign Transaction Test</title>
     <script>
      function hexlify(str) {
          var result = '';
@@ -15,7 +15,7 @@
      };
 
 
-     function trezorSignTx(type) {
+     function safeTSignTx(type) {
          // spend one change output
          var address_n = "m/44'/1'/0'/0'/0'"; 
 
@@ -61,7 +61,7 @@
             ]
         }
 
-        TrezorConnect.nemSignTx(
+        SafeTConnect.nemSignTx(
             address_n,
             type === 'simple' ? tx1 : tx2,
             function (response) {
@@ -78,8 +78,8 @@
   </head>
   <body>
 
-    <button onclick="trezorSignTx('simple')">Sign simple</button>
-    <button onclick="trezorSignTx('mosaic')">Sign mosaic</button>
+    <button onclick="safeTSignTx('simple')">Sign simple</button>
+    <button onclick="safeTSignTx('mosaic')">Sign mosaic</button>
 
     <pre id="response"></pre>
 
