@@ -952,7 +952,7 @@ function handleEthereumSignTx(event) {
             let handler = errorHandler(() => signEthTx(device));
 
             let chain_id_sent;
-            if (device.atLeast('1.4.2')) {
+            if (device.atLeast('1.0.0')) {
                 chain_id_sent = chain_id;
             }
 
@@ -1386,8 +1386,8 @@ function initTransport() {
 
 // note - this can be changed in onMessage
 // caller can specify his own version
-// but only bigger than 1.3.4
-let requiredFirmware = '1.3.4';
+// but only bigger than 1.0.0
+let requiredFirmware = '1.0.0';
 
 function waitForFirstDevice(list) {
     let res;

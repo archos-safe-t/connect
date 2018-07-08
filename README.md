@@ -23,8 +23,7 @@ the error message.  It is recommended to log the error message and let user
 restart the action.
 
 All the API calls also have an optional parameter requiredFirmware; you can
-require that firmware version or newer (for example, 1.4.0 for Ethereum support)
-- see example xpub-ethereum.
+require that firmware version or newer
 
 ## Versions
 
